@@ -8,6 +8,9 @@
 <body>
   <h1><%= design.title %></h1>
   <p>Published: <%= design.isPublished ? "Yes" : "No" %></p>
+   <form action="/designs/<%= design._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete <%= design.title %></button>
+  </form>
 <a href="/designs/<%= design._id %>/edit">Edit Design</a>
 <a href="/designs">Back to Designs</a>
 </body>

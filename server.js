@@ -5,6 +5,7 @@ dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const morgan = require("morgan")
 
 const app = express();
 
@@ -13,6 +14,7 @@ const app = express();
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
+app.use(morgan("dev"));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -100,6 +102,7 @@ app.put('/designs/:designId', async (req, res) => {
   }
 
   try {
+    
     // Update the design by ID
     await Design.findByIdAndUpdate(req.params.designId, req.body);
     res.redirect(`/designs/${req.params.designId}`);
@@ -108,6 +111,13 @@ app.put('/designs/:designId', async (req, res) => {
     res.send('Update failed');
   }
 });
+
+// DELETE /designs/:designId
+app.delete('/designs/:designId', async (req, res) => {
+  await Design.findByIdAndDelete(req.params.designId);
+  res.redirect('/designs');
+});
+
 
 
 
