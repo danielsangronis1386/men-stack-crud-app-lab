@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Designs</title>
+</head>
+<body>
+  <h1>All Graphic Designs</h1>
+  
+  <ul>
+    <% designs.forEach(design => { %>
+      <li>
+        <strong><%= design.title %></strong> — 
+        Published: <%= design.isPublished ? "Yes" : "No" %>
+      </li>
+    <% }) %>
+  </ul>
+
+  <a href="/designs/new">Add New Design</a>
+</body>
+</html>

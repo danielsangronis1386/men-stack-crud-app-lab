@@ -56,6 +56,17 @@ app.post('/designs', async (req, res) => {
     res.send('Something went wrong!');
   }
 });
+// ----- Index Route (GET /designs) -----
+app.get('/designs', async (req, res) => {
+  try {
+    const allDesigns = await Design.find();
+    res.render('designs/index.ejs', { designs: allDesigns });
+  } catch (err) {
+    console.error('Error fetching designs:', err);
+    res.send('Problem loading designs');
+  }
+});
+
 
 app.listen(3000, () => {
   console.log('Listening on port 3000');
