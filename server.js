@@ -56,7 +56,7 @@ app.post('/designs', async (req, res) => {
     res.send('Something went wrong!');
   }
 });
-// ----- Index Route (GET /designs) -----
+//  Index Route (GET /designs) 
 app.get('/designs', async (req, res) => {
   try {
     const allDesigns = await Design.find();
@@ -66,7 +66,7 @@ app.get('/designs', async (req, res) => {
     res.send('Problem loading designs');
   }
 });
-// ----- Show Route (GET /designs/:id) -----
+// Show Route (GET /designs/:id) 
 app.get('/designs/:id', async (req, res) => {
   try {
     const design = await Design.findById(req.params.id);
@@ -76,6 +76,18 @@ app.get('/designs/:id', async (req, res) => {
     res.send('Design not found');
   }
 });
+
+//  Edit Route (GET /designs/:designId/edit) 
+app.get('/designs/:designId/edit', async (req, res) => {
+  try {
+    const foundDesign = await Design.findById(req.params.designId);
+    res.render('designs/edit.ejs', { design: foundDesign });
+  } catch (err) {
+    console.error('Error loading edit form:', err);
+    res.send('Could not load the edit page');
+  }
+});
+
 
 
 

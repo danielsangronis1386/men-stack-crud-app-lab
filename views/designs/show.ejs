@@ -8,7 +8,7 @@
 <body>
   <h1><%= design.title %></h1>
   <p>Published: <%= design.isPublished ? "Yes" : "No" %></p>
-
-  <a href="/designs">Back to All Designs</a>
+<a href="/designs/<%= design._id %>/edit">Edit Design</a>
+<a href="/designs">Back to Designs</a>
 </body>
 </html>
