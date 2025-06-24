@@ -28,6 +28,10 @@ app.get('/test', (req, res) => {
 app.get('/', async (req, res) => {
   res.render('index.ejs');
 });
+// GET /designs/new - form to create a new design
+app.get('/designs/new', (req, res) => {
+  res.render('designs/new.ejs');
+});
 
 app.listen(3000, () => {
   console.log('Listening on port 3000');
