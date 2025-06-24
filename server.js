@@ -92,7 +92,7 @@ app.get('/designs/:designId/edit', async (req, res) => {
   }
 });
 
-// ----- Update Route (PUT /designs/:designId) -----
+// Update Route (PUT /designs/:designId)
 app.put('/designs/:designId', async (req, res) => {
   // Handle checkbox value
   if (req.body.isPublished === 'on') {
