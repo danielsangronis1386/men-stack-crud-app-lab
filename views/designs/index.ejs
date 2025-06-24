@@ -8,14 +8,15 @@
 <body>
   <h1>All Graphic Designs</h1>
   
-  <ul>
-    <% designs.forEach(design => { %>
-      <li>
-        <strong><%= design.title %></strong> — 
-        Published: <%= design.isPublished ? "Yes" : "No" %>
-      </li>
-    <% }) %>
-  </ul>
+ <ul>
+  <% designs.forEach(design => { %>
+    <li>
+      <a href="/designs/<%= design._id %>">
+        <strong><%= design.title %></strong>
+      </a> — Published: <%= design.isPublished ? "Yes" : "No" %>
+    </li>
+  <% }) %>
+</ul>
 
   <a href="/designs/new">Add New Design</a>
 </body>

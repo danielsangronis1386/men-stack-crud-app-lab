@@ -66,6 +66,17 @@ app.get('/designs', async (req, res) => {
     res.send('Problem loading designs');
   }
 });
+// ----- Show Route (GET /designs/:id) -----
+app.get('/designs/:id', async (req, res) => {
+  try {
+    const design = await Design.findById(req.params.id);
+    res.render('designs/show.ejs', { design });
+  } catch (err) {
+    console.error('Error fetching single design:', err);
+    res.send('Design not found');
+  }
+});
+
 
 
 app.listen(3000, () => {
