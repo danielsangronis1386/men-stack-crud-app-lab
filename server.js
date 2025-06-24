@@ -7,8 +7,10 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// Set EJS as the view engine
+
+//  MIDDLEWARE
 app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: false }));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -18,6 +20,11 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB: ${mongoose.connection.name}`);
 });
 
+//  MODELS
+const Design = require('./models/Design');
+
+
+//  ROUTES
 
 // Home route to test that server is working
 app.get('/test', (req, res) => {
@@ -31,6 +38,23 @@ app.get('/', async (req, res) => {
 // GET /designs/new - form to create a new design
 app.get('/designs/new', (req, res) => {
   res.render('designs/new.ejs');
+});
+
+// POST /designs
+app.post('/designs', async (req, res) => {
+  if (req.body.isPublished === 'on') {
+    req.body.isPublished = true;
+  } else {
+    req.body.isPublished = false;
+  }
+
+  try {
+    await Design.create(req.body);
+    res.redirect('/designs/new');
+  } catch (err) {
+    console.error('Error creating design:', err);
+    res.send('Something went wrong!');
+  }
 });
 
 app.listen(3000, () => {
