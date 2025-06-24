@@ -4,6 +4,7 @@ dotenv.config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -11,6 +12,7 @@ const app = express();
 //  MIDDLEWARE
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -87,6 +89,26 @@ app.get('/designs/:designId/edit', async (req, res) => {
     res.send('Could not load the edit page');
   }
 });
+
+// ----- Update Route (PUT /designs/:designId) -----
+app.put('/designs/:designId', async (req, res) => {
+  // Handle checkbox value
+  if (req.body.isPublished === 'on') {
+    req.body.isPublished = true;
+  } else {
+    req.body.isPublished = false;
+  }
+
+  try {
+    // Update the design by ID
+    await Design.findByIdAndUpdate(req.params.designId, req.body);
+    res.redirect(`/designs/${req.params.designId}`);
+  } catch (err) {
+    console.error('Error updating design:', err);
+    res.send('Update failed');
+  }
+});
+
 
 
 
