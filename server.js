@@ -37,7 +37,7 @@ app.get('/test', (req, res) => {
 
 // GET / - landing page
 app.get('/', async (req, res) => {
-  res.render('index.ejs');
+  res.redirect('/designs');
 });
 // GET /designs/new - form to create a new design
 app.get('/designs/new', (req, res) => {
